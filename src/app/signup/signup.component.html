@@ -1,1 +1,45 @@
-<p>signup works!</p>
+<div class="container-fluid">
+    <h1>Create a new Account</h1>
+    <!-- {{ userSignupForm.value | json }} -->
+    <!-- {{ email.untouched}} -->
+    <form #userSignupForm ="ngForm" action="">
+        <div class="form-group">
+            <label for="">Email</label>
+            <input required type="email" [class.is-valid]="email.invalid && email.touched" #email="ngModel" name="email" 
+            class="form-control" [(ngModel)] = "scrumUserModel.email">
+            <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
+            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must have a @ char</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Full Name</label>
+            <input type="text" [class.is-valid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+            name="fullname" class="form-control" [(ngModel)] = "scrumUserModel.fullname">
+        </div>
+
+        <div class="form-group">
+            <label for="">Password</label>
+            <input required type="password" pattern="^.{8,16}$" [class.is-valid]="password.invalid && password.touched" name="password" 
+            #password="ngModel" class="form-control" [(ngModel)] = "scrumUserModel.password">
+            <div *ngIf="password.errors && (password.invalid || password.untouched)">
+                <small class="text-danger" *ngIf="password.errors.required">Password is required</small>
+                <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">User Type</label>
+            <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.usertype">
+                <option selected>I am signing up as</option>
+                <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
+            </select>
+
+        </div>
+
+        <button class="btn btn-primary">Create User</button>
+    </form>
+
+</div>

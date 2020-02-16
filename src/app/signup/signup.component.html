@@ -5,8 +5,8 @@
     <form #userSignupForm ="ngForm" action="">
         <div class="form-group">
             <label for="">Email</label>
-            <input required type="email" [class.is-valid]="email.invalid && email.touched" #email="ngModel" name="email" 
-            class="form-control" [(ngModel)] = "scrumUserModel.email">
+            <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-valid]="email.invalid && email.touched" 
+            #email="ngModel" name="email" class="form-control" [(ngModel)] = "scrumUserModel.email">
             <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
             <div *ngIf="email.errors && (email.invalid || email.untouched)">
                 <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
@@ -16,13 +16,18 @@
 
         <div class="form-group">
             <label for="">Full Name</label>
-            <input type="text" [class.is-valid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+            <input required type="text" [class.is-valid]="fullname.invalid && fullname.touched" #fullname="ngModel"
             name="fullname" class="form-control" [(ngModel)] = "scrumUserModel.fullname">
+            <div *ngIf="fullname.errors && (fullname.invalid || fullname.untouched)">
+                <small class="text-danger" *ngIf="fullname.errors.required">Full Name is required</small>
+                <small class="text-danger" *ngIf="fullname.errors.pattern">Email must have a @ char</small>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="">Password</label>
-            <input required type="password" pattern="^.{8,16}$" [class.is-valid]="password.invalid && password.touched" name="password" 
+            <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" 
+            [class.is-valid]="password.invalid && password.touched" name="password" 
             #password="ngModel" class="form-control" [(ngModel)] = "scrumUserModel.password">
             <div *ngIf="password.errors && (password.invalid || password.untouched)">
                 <small class="text-danger" *ngIf="password.errors.required">Password is required</small>

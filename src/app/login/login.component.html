@@ -1,16 +1,21 @@
 <div class="container-fluid">
     <h1>Login</h1>
-    <form action="">
+    <form #userLoginForm ="ngForm" action="">
         <div class="form-group">
             <label for="">Email</label>
-            <input type="email" [class.is-valid]="email.invalid && email.touched" name="email"
-             class="form-control">
+            <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-valid]="email.invalid && email.touched" name="email"
+            #email="ngModel" class="form-control" ngModel>
+            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Password must 8-15 characters long</small>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="">Password</label>
-            <input type="password" [class.is-valid]="password.invalid && password.touched" name="password"
-             class="form-control">
+            <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+            [class.is-valid]="password.invalid && password.touched" name="password"
+            #password="ngModel" class="form-control" ngModel>
             <div *ngIf="password.errors && (password.invalid || password.untouched)">
                 <small class="text-danger" *ngIf="password.errors.required">Password is required</small>
                 <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
@@ -19,8 +24,12 @@
 
         <div class="form-group">
             <label for="">Project Type</label>
-            <input type="text" [class.is-valid]="project_type.invalid && project_type.touched" name="project_type" 
-            class="form-control">
+            <input required type="text" [class.is-valid]="project_type.invalid && project_type.touched" name="project_type" 
+            #project_type="ngModel" class="form-control" ngModel >
+            <div *ngIf="project_type.errors && (project_type.invalid || project_type.untouched)">
+                <small class="text-danger" *ngIf="project_type.errors.required">Project Type is required</small>
+                <small class="text-danger" *ngIf="project_type.errors.pattern">Password must 8-15 characters long</small>
+            </div>
         </div>
 
         <button class="btn btn-primary">Login</button>

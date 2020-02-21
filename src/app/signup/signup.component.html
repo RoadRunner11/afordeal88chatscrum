@@ -2,7 +2,8 @@
     <h1>Create a new Account</h1>
     <!-- {{ userSignupForm.value | json }} -->
     <!-- {{ email.untouched}} -->
-    <form #userSignupForm ="ngForm" action="">
+    
+    <form #userSignupForm ="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
         <div class="form-group">
             <label for="">Email</label>
             <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-valid]="email.invalid && email.touched" 
@@ -38,13 +39,15 @@
         <div class="form-group">
             <label for="">User Type</label>
             <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.usertype">
-                <option selected>I am signing up as</option>
+                <option value="" selected></option>
                 <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
             </select>
 
         </div>
-
+        <h5>{{feedbk}}</h5>
         <button class="btn btn-primary">Create User</button>
+        <div>Already have an account?<a routerLink="/login">Login</a></div>
+
     </form>
 
 </div>

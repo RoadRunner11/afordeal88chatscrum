@@ -4,32 +4,32 @@
     <form  (ngSubmit) = "onLoginSubmit()" action="">
         <div class="form-group">
             <label for="">Email</label>
-            <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-valid]="email.invalid && email.touched" name="email"
+            <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.invalid && email.touched" name="email"
             #email="ngModel" class="form-control" [(ngModel)] = "scrumUserLoginData.email">
             <div *ngIf="email.errors && (email.invalid || email.untouched)">
-                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
-                <small class="text-danger" *ngIf="email.errors.pattern">Password must 8-15 characters long</small>
+                <small class="text-danger" [class.d-none]="email.valid || email.untouched" >Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must contain @</small>
             </div>
         </div>
 
         <div class="form-group">
             <label for="">Password</label>
             <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-            [class.is-valid]="password.invalid && password.touched" name="password"
+            [class.is-invalid]="password.invalid && password.touched" name="password"
             #password="ngModel" class="form-control"  [(ngModel)] = "scrumUserLoginData.password">
             <div *ngIf="password.errors && (password.invalid || password.untouched)">
-                <small class="text-danger" *ngIf="password.errors.required">Password is required</small>
+                <small class="text-danger" [class.d-none]="password.valid || password.untouched" >Password is required</small>
                 <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
             </div>
         </div>
 
         <div class="form-group">
             <label for="">Project Name</label>
-            <input required type="text" pattern="" [class.is-valid]="projname.invalid && projname.touched" name="projname" 
+            <input required type="text" pattern="" [class.is-invalid]="projname.invalid && projname.touched" name="projname" 
             #projname="ngModel" class="form-control" [(ngModel)] = "scrumUserLoginData.projname" >
             <div *ngIf="projname.errors && (projname.invalid || projname.untouched)">
-                <small class="text-danger" *ngIf="projname.errors.required">Project Type is required</small>
-                <small class="text-danger" *ngIf="projname.errors.pattern">Password must 8-15 characters long</small>
+                <small class="text-danger" [class.d-none]="projname.valid || projname.untouched" >Project Type is required</small>
+                <small class="text-danger" *ngIf="projname.errors.pattern">Error</small>
             </div>
         </div>
         <h5>{{feedbk}}</h5>

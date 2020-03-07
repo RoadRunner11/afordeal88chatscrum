@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ScrumboardComponent } from './scrumboard/scrumboard.component';
 import { AuthGuard } from './auth.guard';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CreateprojectComponent } from './createproject/createproject.component';
+import { ChangeroleComponent } from './changerole/changerole.component';
+import { ChatComponent } from './chat/chat.component';
+import { CreategoalComponent } from './creategoal/creategoal.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +23,18 @@ import { AuthGuard } from './auth.guard';
     SignupComponent,
     LoginComponent,
     HomepageComponent,
-    ScrumboardComponent
+    ScrumboardComponent,
+    CreateprojectComponent,
+    ChangeroleComponent,
+    ChatComponent,
+    CreategoalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,  
+    HttpClientModule,
+    DragDropModule,  
+    BrowserAnimationsModule,
     AppRoutingModule,
   ],
   providers: [AuthGuard],

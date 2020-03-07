@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <h1>Create a new project</h1>
+    <!-- {{ userSignupForm.value | json }} -->
+    <!-- {{ email.untouched}} -->
+
+    <form #createProject="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
+        <div class="form-group">
+            <label for="">Email</label>
+            <input required type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [class.is-invalid]="email.invalid && email.touched" #email="ngModel" name="email" class="form-control"
+                [(ngModel)]="createProject.email">
+            <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
+            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+                <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must in lowercase and have a @
+                    char</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Full Name</label>
+            <input required type="text" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+                name="fullname" class="form-control" [(ngModel)]="createProject.fullname">
+            <div *ngIf="fullname.errors && (fullname.invalid || fullname.untouched)">
+                <small class="text-danger" [class.d-none]="fullname.valid || fullname.untouched">Full Name is
+                    required</small>
+                <small class="text-danger" *ngIf="fullname.errors.pattern">Email must have a @ char</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Project Name</label>
+            <input required type="text" pattern=""
+                [class.is-invalid]="password.invalid && password.touched" name="projname" #projname="ngModel"
+                class="form-control" [(ngModel)]="createProject.password">
+            <div *ngIf="projname.errors && (projname.invalid || projname.untouched)">
+                <small class="text-danger" [class.d-none]="projname.valid || projname.untouched">Project name is
+                    required</small>
+                <small class="text-danger" *ngIf="projname.errors.pattern">   </small>
+            </div>
+        </div>
+        <h5>{{feedbk}}</h5>
+    </form>
+</div>

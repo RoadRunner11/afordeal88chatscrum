@@ -1,0 +1,24 @@
+<div class="">
+    <div class="p-2 pl-4 bg-success mb-4">
+        <h3 class="text-white">
+            Create New Goal Task
+        </h3>
+    </div>
+    <div class="container">
+        <a class="text-primary" routerLink='/scrumboard/{{ usercred.project_id }}'>return back to Homepage</a>
+        <br>
+        <br>
+        <h5 class="text-success">{{ feedback }}</h5>
+        <form #createprojectForm="ngForm" (ngSubmit)=oncreateSubmit()>
+            <div class="form_group">
+                <label>
+                    Enter Task
+                </label>
+                <input type="text" name="taskname" class="form-control" #taskname='ngModel'
+                    [(ngModel)]='creategoal.name'>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit">Add Task</button>
+        </form>
+    </div>
+</div>

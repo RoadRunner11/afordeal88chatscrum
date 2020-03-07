@@ -1,0 +1,29 @@
+<section>
+    <div class="container">
+        <h3>Chat</h3>
+        <div>
+            <ul>
+                <li *ngFor="let message of messages">
+                    <div class="chat-container darker" *ngIf= "message.username == getUsername()">
+                        <img src="" alt="{{message.username}}" class="right">
+                        <p>{{message.content}}</p><span class="time-left">{{message.timestamp}}</span>
+                    </div>
+                    <div class="chat-container">
+                         <img src="" alt="{{message.username}}">
+                        <p>{{message.content}}</p> 
+                        <span class="time-right">{{message.timestamp}}</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="chat-popup">
+                <form action="" class="form-container">
+                    <label for="chat-text">
+                        <b>Message</b>
+                    </label>
+                    <input type="text" placeholder="Type message..." name="chat_text" #chat_text = "ngModel" [(ngModel)]='scrumLoginUserModel.projname' required >
+                    <button type="submit" class="btn"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

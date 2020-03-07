@@ -1,1 +1,83 @@
 <p>This is the Scrumboard!</p>
+
+<br>
+<div class='row'>
+    <div  class="col-md-4">
+        <h3>To-do List</h3>
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+        [cdkDropListConnectedTo] = "['doingList', 'doneList']" (cdkDropListDropped)= drop($event)>
+            <div *ngFor = "let item of todo; ", cdkDrag >
+                {{item}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Doing List</h3>
+        <div cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing"
+            [cdkDropListConnectedTo]="['todoList', 'doneList']" (cdkDropListDropped)=drop($event)>
+            <div *ngFor="let item of doing; " , cdkDrag>
+                {{item}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Done List</h3>
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="['doingList', 'todoList']" (cdkDropListDropped)=drop($event)>
+            <div *ngFor="let item of done; " , cdkDrag>
+                {{item}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <table *ngFor= "let participant of _participants" class="table">
+    <hr>
+    <p><strong>{{ participant['user']['nickname'] }}</strong></p>
+
+    <tr>
+        <th>Task for the week</th>
+        <th>Task for the day</th>
+        <th>Verify</th>
+        <th>Done</th>
+    </tr>
+
+    <tr>
+        <td>
+            <div *ngFor="let goal of participant['scrumgoal_set']">
+                <div *ngIf= "goal['status']==0 && goal['user']==participant['id'] ">
+                    {{goal['name']}} <br>
+                    {{goal['id']}}
+                    <p> status : {{ goal['status'] }}</p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div *ngFor="let goal of participant['scrumgoal_set'] ">
+                <div *ngIf="goal['status']==1 && goal['user']==participant['id'] ">
+                    {{goal['name']}} <br>
+                    {{goal['id']}}
+                    <p> status : {{ goal['status'] }}</p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div *ngFor="let goal of participant['scrumgoal_set']">
+                <div *ngIf="goal['status']==2 && goal['user']==participant['id'] ">
+                    {{goal['name']}} <br>
+                    {{goal['id']}}
+                    <p> status : {{ goal['status'] }}</p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div *ngFor="let goal of participant['scrumgoal_set']">
+                <div *ngIf="goal['status']==3  && goal['user']==participant['id'] ">
+                    {{goal['name']}} <br>
+                    {{goal['id']}}
+                    <p> status : {{ goal['status'] }}</p>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table> -->

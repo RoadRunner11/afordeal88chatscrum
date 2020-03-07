@@ -1,0 +1,16 @@
+<p>changerole works!</p>
+<div class="bg-primary p-3">
+    <h3 class="text-white">Change Role</h3>
+</div>
+<div class="container">
+    <form action="" class="m-4" #changeRoleForm = "ngForm" novalidate (ngSubmit)= "onSubmit">  
+        <div class="form-group">
+            <label for=""><h5>Select Role</h5></label>
+            <select name="newType" class="form-control" [(ngModel)] = "changerole">
+                <option value=""></option>
+                <option value="" *ngFor= "let type of userTypes">{{type}}</option>
+            </select>
+        </div>
+        <button class="btn bg-primary" type="submit">Change</button>
+    </form>
+</div>

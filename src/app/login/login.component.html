@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h1>Login</h1>
     
-    <form  (ngSubmit) = "onLoginSubmit()" action="">
+    <form #userLoginForm="ngForm" (ngSubmit) = "onLoginSubmit()" action="">
         <div class="form-group">
             <label for="">Email</label>
             <input required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.invalid && email.touched" name="email"

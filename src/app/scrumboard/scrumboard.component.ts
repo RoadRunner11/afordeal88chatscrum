@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router  } from '@angular/router';
 import { SrumdataService } from '../srumdata.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnter, CdkDragExit } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-scrumboard',
@@ -18,10 +18,23 @@ export class ScrumboardComponent implements OnInit {
   verify = [];
   done = [];
 
-  constructor( private _route: ActivatedRoute, private _scrumdataService: SrumdataService) { }
-  
+  role: any;
+  trail: any;
+  _participants: any = [];
   project_id = 0;
-  _participants = [];
+  rtn: any;
+  rolee: any;
+  username: any;
+  id: string;
+  goals: any;
+  projectid: any;
+  theuser: any = JSON.parse(localStorage.getItem('Authobj'));
+  yourname = this.theuser.name;
+  feedback = '';
+
+  constructor( private _route: ActivatedRoute, private _scrumdataService: SrumdataService, private _router: Router) { 
+    this.project_id = parseInt((this._route.snapshot.paramMap.get('project_id')));
+  }
 
   ngOnInit() {
     this.project_id = parseInt((this._route.snapshot.paramMap.get('project_id')));
@@ -51,7 +64,40 @@ export class ScrumboardComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }else{
       transferArrayItem(event.previousContainer.data, event.container.data,event.previousIndex, event.currentIndex)
+      let goal = event.item.data;
+      this._scrumdataService.updateTask(goal)
+        .subscribe(
+          res => {
+            console.log('Successful ' + res);
+          },
+          error => {
+            console.log('error ', error);
+          })
+      
     }
+  }
+
+  onClick(task_for_the_week) {
+    let user = task_for_the_week['user']['id']
+    localStorage.setItem('goal', JSON.stringify(task_for_the_week["id"]));
+    this._router.navigate(['/creategoal/', user])
+  }
+  startSprint() {
+    this.projectid = JSON.parse(localStorage.getItem('Authobj'));
+    this._scrumdataService.createSprint(this.projectid.project_id).subscribe(
+      data => {
+        this.feedback = "sprint just started"
+        console.log("successfull: sprint : " + data["message"])
+      },
+      error => {
+        console.log('sprint error', JSON.stringify(error));
+        this.feedback = "Sprint Started";
+      }
+    )
+  }
+
+  onClickrole(participant) {
+    this._router.navigate(['/changerole/', participant["id"]]);
   }
 
   getProjectGoals() {
@@ -59,6 +105,10 @@ export class ScrumboardComponent implements OnInit {
       data => {
         console.log(data)
         this._participants = data['data']
+        this.role = JSON.parse(localStorage.getItem('Authobj'));
+        this.rolee = this.role.role;
+        this.username = this.role.name;
+        this.id = this.role.role_id;
       },
       error => {
         console.log("Error", error)

@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     console.log(this.scrumUserLoginData)
     this._scrumdataService.login(this.scrumUserLoginData).subscribe(
       data => {console.log('Success!', data)
+      localStorage.setItem('Authuser', JSON.stringify(this.scrumUserLoginData));
+      localStorage.setItem('Authobj', JSON.stringify(data));
       localStorage.setItem('token', data.token)
       this._router.navigate(['/scrumboard', data["project_id"]])
     },

@@ -44,7 +44,7 @@ export class SrumdataService {
   }
 
   create_project(user: Createproject){
-    return this._http.post<any>(this._scrumProjectUrl,
+    return this._http.post<any>(this._url,
       { 'email': user['email'], 'password': user['password'], 'full_name': user['fullname'] ,
        'usertype':user['usertype'], 'projname': user['projname'] }, this.httpOptions) 
   }
@@ -79,7 +79,7 @@ export class SrumdataService {
     });
   }
 
-  updateTask(goal_id){
+  updateTask(goal_id): Observable<any>{
     this.token = localStorage.getItem('token');
     this.logincred = JSON.parse(localStorage.getItem('Authuser'));
     this.logincred = btoa(`${this.logincred.email}:${this.logincred.password}`);

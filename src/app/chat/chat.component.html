@@ -21,7 +21,7 @@
                         <b>Message</b>
                     </label>
                     <input type="text" placeholder="Type message..." name="chat_text" #chat_text = "ngModel" [(ngModel)]='scrumLoginUserModel.projname' required >
-                    <button type="submit" class="btn"></button>
+                    <button type="submit" class="btn" (click)=sendMessage()>Send</button>
                 </form>
             </div>
         </div>

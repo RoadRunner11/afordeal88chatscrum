@@ -19,8 +19,8 @@
 
         <div class="form-group">
             <label for="">Full Name</label>
-            <input required type="text" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
-                name="fullname" class="form-control" [(ngModel)]="createProject.fullname">
+            <input required type="text" name="fullname" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+                 class="form-control" [(ngModel)]="createProject.fullname">
             <div *ngIf="fullname.errors && (fullname.invalid || fullname.untouched)">
                 <small class="text-danger" [class.d-none]="fullname.valid || fullname.untouched">Full Name is
                     required</small>
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label for="">Project Name</label>
             <input required type="text" pattern=""
-                [class.is-invalid]="password.invalid && password.touched" name="projname" #projname="ngModel"
+                [class.is-invalid]="projname.invalid && projname.touched" name="projname" #projname="ngModel"
                 class="form-control" [(ngModel)]="createProject.password">
             <div *ngIf="projname.errors && (projname.invalid || projname.untouched)">
                 <small class="text-danger" [class.d-none]="projname.valid || projname.untouched">Project name is
@@ -40,5 +40,7 @@
             </div>
         </div>
         <h5>{{feedbk}}</h5>
+        <br>
+        <button class="btn btn-primary" type="submit">Create Project</button>
     </form>
 </div>

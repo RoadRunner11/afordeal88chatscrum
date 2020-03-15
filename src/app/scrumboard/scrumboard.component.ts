@@ -13,10 +13,10 @@ export class ScrumboardComponent implements OnInit {
   // todo = ['Learn Django', 'Learn Python','Learn PHP'];
   // doing = ['Learn Design'];
   // done = ['Learn Linux'];
-  tftw = [];
-  tftd = [];
-  verify = [];
-  done = [];
+  public tftw: any[] = [];
+  public tftd: any[] = [];
+  public verify: any[] = [];
+  public done: any[] = [];
 
   role: any;
   trail: any;
@@ -31,34 +31,94 @@ export class ScrumboardComponent implements OnInit {
   theuser: any = JSON.parse(localStorage.getItem('Authobj'));
   yourname = this.theuser.name;
   feedback = '';
+  connected = "";
 
   constructor( private _route: ActivatedRoute, private _scrumdataService: SrumdataService, private _router: Router) { 
     this.project_id = parseInt((this._route.snapshot.paramMap.get('project_id')));
   }
-
+  
   ngOnInit() {
     this.project_id = parseInt((this._route.snapshot.paramMap.get('project_id')));
     this.getProjectGoals();
-    this.filter();
+    // this.filter();
   }
+  getProjectGoals() {
+    this._scrumdataService.allProjectGoals(this.project_id).subscribe(
+      data => {
+        console.log(data)
+        this._participants = data['data']
+        this.role = JSON.parse(localStorage.getItem('Authobj'));
+        this.rolee = this.role.role;
+        this.username = this.role.name;
+        this.id = this.role.role_id;
+        console.log(this._participants)
+        for (let participant of this._participants ){
+          if (participant['user']['nickname'] == this.username){
+            for (let goal of participant['scrumgoal_set']){
+              
+              if (goal['status'] == 0){
+                this.tftw.push(goal)
+              }
+              else if (goal['status'] == 1){
+                this.tftd.push(goal)
+              }
+              else if (goal['status'] == 2){
+                this.verify.push(goal)
+              }else{
+                this.done.push(goal)
+              }  
+
+            }
+              console.log(this.tftw)
+          }
+
+        }
+      },
+      error => {
+        console.log("Error", error)
+      }
+    )
+  }
+  
   filter(){
-    for (let value in this._participants){
-      for (let goal in value['scrumgoal_set']){
-        if (goal['status'] == 0){
+    console.log(this._participants)
+    this.connected = "fil";
+    for (let participant of this._participants ){
+
+      for (let goal of participant['scrumgoal_set']){
+        
+        if (goal['status'] === 0){
           this.tftw.push(goal)
         }
-        else if (goal['status'] == 1){
+        else if (goal['status'] === 1){
           this.tftd.push(goal)
         }
-        else if (goal['status'] == 2){
+        else if (goal['status'] === 2){
           this.verify.push(goal)
         }else{
           this.done.push(goal)
         }
 
       }
+    }  
+  }
+  
+  calcultateRole(val) {
+    val = val.split("-");
+    if ((val[3] % 4) === 3) {
+      return 3;
+    }
+    if ((val[3] % 4) === 2) {
+      return 2;
+    }
+    if ((val[3] % 4) === 1) {
+      return 1;
+    }
+    if ((val[3] % 4) === 0) {
+      return 0;
     }
   }
+
   drop(event:  CdkDragDrop<string[]>){
     if (event.previousContainer === event.container){
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -69,6 +129,7 @@ export class ScrumboardComponent implements OnInit {
         .subscribe(
           res => {
             console.log('Successful ' + res);
+            
           },
           error => {
             console.log('error ', error);
@@ -100,19 +161,4 @@ export class ScrumboardComponent implements OnInit {
     this._router.navigate(['/changerole/', participant["id"]]);
   }
 
-  getProjectGoals() {
-    this._scrumdataService.allProjectGoals(this.project_id).subscribe(
-      data => {
-        console.log(data)
-        this._participants = data['data']
-        this.role = JSON.parse(localStorage.getItem('Authobj'));
-        this.rolee = this.role.role;
-        this.username = this.role.name;
-        this.id = this.role.role_id;
-      },
-      error => {
-        console.log("Error", error)
-      }
-    )
-  }
 }

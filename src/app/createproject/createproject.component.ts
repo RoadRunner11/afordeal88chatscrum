@@ -26,8 +26,8 @@ export class CreateprojectComponent implements OnInit {
         this.feedbk = "Your project was created successfully"
       },
       error => {
-        console.error('Error', error)
-        this.feedbk = "Project creation failed failed"
+        console.error('error'+ JSON.stringify(error))
+        this.feedbk = "Project creation failed"
       }
 
     )

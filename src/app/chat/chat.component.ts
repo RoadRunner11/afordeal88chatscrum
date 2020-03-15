@@ -9,7 +9,7 @@ import { Scrumuser } from '../scrumuser';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  WS_URL: string = "wss://fh7hhc2pn0.execute-api.us-east-2.amazonaws.com/Test" //"wss://gr3cwo64fb.execute-api.us-west-2.amazonaws.com/Test/"
+  WS_URL: string ="wss://gr3cwo64fb.execute-api.us-west-2.amazonaws.com/Test/" //"wss://fh7hhc2pn0.execute-api.us-east-2.amazonaws.com/Test" 
   websocketConnection: WebSocket ;
   messages: Array<object> =[]
   chat_text: String

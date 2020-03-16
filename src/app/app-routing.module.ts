@@ -6,7 +6,6 @@ import { SignupComponent } from './signup/signup.component';
 import { ScrumboardComponent } from './scrumboard/scrumboard.component';
 import { AuthGuard } from './auth.guard';
 import { ChangeroleComponent } from './changerole/changerole.component';
-import { Createproject } from './createproject';
 import { CreategoalComponent } from './creategoal/creategoal.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ChatComponent } from './chat/chat.component';

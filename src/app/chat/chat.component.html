@@ -1,16 +1,19 @@
 <section>
     <div class="container">
+        <a class="btn bg-primary conn text-white ml-3" (click)= "onClick()">Scrumboard</a>
         <h3>Chat</h3>
+        
         <div>
             <ul>
                 <li *ngFor="let message of messages">
                     <div class="chat-container darker" *ngIf= "message.username == getUsername()">
                         <img src="" alt="{{message.username}}" class="right">
-                        <p>{{message.content}}</p><span class="time-left">{{message.timestamp}}</span>
+                        <p>{{message.message}}</p>
+                        <span class="time-left">{{message.timestamp}}</span>
                     </div>
-                    <div class="chat-container">
+                    <div class="chat-container" *ngIf= "message.username !== getUsername()">
                          <img src="" alt="{{message.username}}">
-                        <p>{{message.content}}</p> 
+                        <p>{{message.message}}</p> 
                         <span class="time-right">{{message.timestamp}}</span>
                     </div>
                 </li>
@@ -20,8 +23,10 @@
                     <label for="chat-text">
                         <b>Message</b>
                     </label>
-                    <input type="text" placeholder="Type message..." name="chat_text" #chat_text = "ngModel" [(ngModel)]='scrumLoginUserModel.projname' required >
-                    <button type="submit" class="btn" (click)=sendMessage()>Send</button>
+                    <input type="text" placeholder="Type message..." name="chat_text"
+                     id="chat_text" #chat_text   required >
+                    <button type="submit" class="btn" 
+                    (click)="sendMessage(chat_text.value)">Send</button>
                 </form>
             </div>
         </div>

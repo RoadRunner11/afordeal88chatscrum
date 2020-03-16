@@ -17,13 +17,17 @@ export class CreateprojectComponent implements OnInit {
   }
   createProject = new Createproject('', '', '', '', '');
   feedbk = "";
-  
+  onClick() {
+    let project_id = parseInt((this._route.snapshot.paramMap.get('project_id')))
+    this._router.navigate(['/scrumboard/', project_id])
+  }
   onSubmit() {
     console.log(this.createProject);
     this._scrumdataService.create_project(this.createProject).subscribe(
       data => {
         console.log('Success!', data)
         this.feedbk = "Your project was created successfully"
+        
       },
       error => {
         console.error('error'+ JSON.stringify(error))

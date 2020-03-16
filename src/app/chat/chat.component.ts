@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../websocket.service';
 import { Scrumuser } from '../scrumuser';
+import { ActivatedRoute, Router  } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +20,7 @@ export class ChatComponent implements OnInit {
   status: any;
   socket: WebSocket;
 
-  constructor( private wsService: WebsocketService) {
+  constructor( private _route: ActivatedRoute,  private _router: Router,private wsService: WebsocketService) {
     this.websocketConnection = new WebSocket('wss://gr3cwo64fb.execute-api.us-west-2.amazonaws.com/Test');
     console.log('connect', this.websocketConnection)
   }
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit {
         if (data['messages'] !== undefined){
           data['messages'].forEach((message) => {
             console.log("new =" + JSON.stringify(message))
-            this.messages.push(message)
+            this.messages.unshift (message)
             
           })
           console.log("Array "+ this.messages)
@@ -58,9 +59,14 @@ export class ChatComponent implements OnInit {
   }
   scrumLoginUserModel = new Scrumuser('', '', '', '', '');
 
+  onClick() {
+    let project_id = parseInt((this._route.snapshot.paramMap.get('project_id')))
+    this._router.navigate(['/scrumboard/', project_id])
+  }
+
   getUsername(){
     this.logincred = JSON.parse(localStorage.getItem('Authobj'));
-    console.log("The User =" + this.logincred.name)
+    // console.log("The User =" + this.logincred.name)
     return this.logincred.name
   }
 
@@ -68,18 +74,23 @@ export class ChatComponent implements OnInit {
     return new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
   }
 
-  sendMessage(){
-    const chat_text = this.scrumLoginUserModel.project_name;
-
-    if(chat_text!=""){
-      const context = {action:"sendMessage", content:chat_text, username:this.getUsername, timestamp:this.getCurrentTime}
+  sendMessage(chat_text){
+    // const chat_text = this.scrumLoginUserModel.project_name;
+    // const chat_text = "hello"
+    console.log(chat_text)
+    if(chat_text){
+      const context = {"action":"sendMessage",     
+       "username":this.getUsername(),
+       "message":chat_text, 
+        "timestamp":this.getCurrentTime()}
+      console.log(context)
       this.websocketConnection.send(JSON.stringify(context))
       this.chat_text = ""
       this.scrumLoginUserModel.project_name = '';
-      window.setInterval(function () {
-        const elem = document.getElementById('data');
-        elem.scrollTop = elem.scrollHeight;
-      }, 5000);
+      // window.setInterval(function () {
+      //   const elem = document.getElementById('data');
+      //   elem.scrollTop = elem.scrollHeight;
+      // }, 5000);
     }
   }
 

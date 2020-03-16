@@ -1,16 +1,17 @@
-<div class="bg-danger d-flex align-content-center justify-content-between flex-row">
-    <h1 class="text-white m-4">Dashboard</h1>
-    <h3 class="text-white">Welcome, {{ yourname }}</h3>
-    <h3 class="text-white">Your Role is {{ rolee }}</h3>
+<div class="bg-success d-flex align-content-center justify-content-between flex-row">
+    <h3 class="text-white m-4">Scrumboard</h3>
+    <h5 class="text-white">Welcome, {{ yourname }}</h5>
+    <h5 class="text-white">Your Role is {{ rolee }}</h5>
     <h6>{{tftw}}</h6>
     <button class="mr-4 btn bg-danger text-white ml-3" routerLink='/login'>Logout</button>
 </div>
+<br>
 <div class="d-flex flex-row justify-content-lg-between">
     <div class="d-flex flex-row middle">
-        <a class="btn bg-secondary conn text-white ml-3" routerLink='/createproject'>
+        <a class="btn bg-primary conn text-white ml-3" routerLink='/createproject'>
             Create a Project</a>
-        <a class="btn bg-secondary conn text-white ml-3" routerLink='/chat'>
-            Let's Chat</a>
+        <a class="btn bg-primary conn text-white ml-3" routerLink='/chat'>
+            Project Chat</a>
         <div *ngIf="rolee == 'Owner'">
             <a class="btn bg-secondary conn text-white ml-3" (click)=startSprint()>
                 Start a Sprint</a>

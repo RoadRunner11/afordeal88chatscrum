@@ -38,7 +38,7 @@
 
         <div class="form-group">
             <label for="">User Type</label>
-            <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.usertype">
+            <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.type">
                 <option value="" selected></option>
                 <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
             </select>

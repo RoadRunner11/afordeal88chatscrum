@@ -49,10 +49,11 @@
             </thead>
             <tbody>
                 <tr *ngIf="rolee == 'Developer' && participant['user']['nickname'] != username">
+                    
                     <td cdkDropList #tftw ="cdkDropList" [cdkDropListData]="tftw"
                         [cdkDropListConnectedTo]="[]" (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']"  >
-                            <div *ngIf="goal['status'] == 0 && goal['user'] == participant['id']">
+                            <div *ngIf="goal['status'] == 0 && goal['user'] == participant['id']" >
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>
                                 <!-- <p>Goal: {{ goal | json }}</p> -->
@@ -62,7 +63,7 @@
                     <td cdkDropList #tftd="cdkDropList" [cdkDropListData]="tftd" [cdkDropListConnectedTo]="[]"
                         (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']"  >
-                            <div *ngIf="goal['status'] == 1 && goal['user'] == participant['id']">
+                            <div *ngIf="goal['status'] == 1 && goal['user'] == participant['id']" >
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>
                             </div>
@@ -71,7 +72,7 @@
                     <td cdkDropList #verify="cdkDropList" [cdkDropListData]="verify" [cdkDropListConnectedTo]="[]"
                         (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']"  >
-                            <div *ngIf="goal['status'] == 2 && goal['user'] == participant['id']">
+                            <div *ngIf="goal['status'] == 2 && goal['user'] == participant['id']" >
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{goal['status']}}</p>
                             </div>
@@ -80,7 +81,7 @@
                     <td cdkDropList #done="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[]"
                         (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']" >
-                            <div *ngIf="goal['status'] == 3 && goal['user'] == participant['id']">
+                            <div *ngIf="goal['status'] == 3 && goal['user'] == participant['id']" >
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>
                             </div>
@@ -96,26 +97,25 @@
 
                     <td cdkDropList #task_for_the_week="cdkDropList" [cdkDropListData]="tftw"
                         [cdkDropListConnectedTo]="[task_for_the_day]" (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let goal of tftw" [cdkDragData]="goal" cdkDrag>
-                            <div *ngIf="goal['user'] == participant['id']">
+                        <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
+                            <div *ngIf="goal['status'] == 0 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>
                             </div>
-                        </div>
-                    </td>
+                        </div>                    </td>
                     <td cdkDropList #task_for_the_day="cdkDropList" [cdkDropListData]="tftd"
-                        [cdkDropListConnectedTo]="[task_verified]" (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let goal of tftd" [cdkDragData]="goal" cdkDrag>
-                            <div *ngIf="goal['user'] == participant['id']">
+                        [cdkDropListConnectedTo]="[task_verified, task_for_the_week]" (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
+                            <div *ngIf="goal['status'] == 1 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>
                             </div>
                         </div>
                     </td>
                     <td cdkDropList #task_verified="cdkDropList" [cdkDropListData]="verify"
-                     [cdkDropListConnectedTo]="[]" (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let goal of verify" [cdkDragData]="goal" cdkDrag>
-                            <div *ngIf=" goal['user'] == participant['id']">
+                     [cdkDropListConnectedTo]="[task_for_the_day]" (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
+                            <div *ngIf="goal['status'] == 2 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{goal['status']}}</p>
                             </div>
@@ -123,7 +123,7 @@
                     </td>
                     <td cdkDropList #task_done="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[]"
                         (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let goal of done" [cdkDragData]="goal" cdkDrag>
+                        <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
                             <div *ngIf="goal['status'] == 3 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
                                 <p>status: {{ goal['status'] }}</p>

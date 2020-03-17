@@ -125,6 +125,7 @@ export class ScrumboardComponent implements OnInit {
     }else{
       transferArrayItem(event.previousContainer.data, event.container.data,event.previousIndex, event.currentIndex)
       let goal = event.item.data;
+      event.item.data.status = this.calcultateRole(event.container.id);
       this._scrumdataService.updateTask(goal)
         .subscribe(
           res => {

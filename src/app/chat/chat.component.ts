@@ -29,23 +29,24 @@ export class ChatComponent implements OnInit {
     this.websocketConnection.onopen = (event) => { 
       const context = { action: "getRecentMessages" }
       this.websocketConnection.send(JSON.stringify(context))
-
-      this.websocketConnection.onmessage = (event) =>{
-        let data = JSON.parse(event.data)
-        console.log("message things" + data['messages'])
-        if (data['messages'] !== undefined){
-          data['messages'].forEach((message) => {
-            console.log("new =" + JSON.stringify(message))
-            this.messages.unshift (message)
-            
-          })
-          console.log("Array "+ this.messages)
-          this.messages.forEach((message) =>{
-            console.log("allmessages " + message )
-          })
-        }
+      
+    }
+    this.websocketConnection.onmessage = (event) =>{
+      let data = JSON.parse(event.data)
+      console.log("message things" + data['messages'])
+      if (data['messages'] !== undefined){
+        data['messages'].forEach((message) => {
+          console.log("new =" + JSON.stringify(message))
+          this.messages.unshift(message)
+          
+        })
+        console.log("Array "+ this.messages)
+        this.messages.forEach((message) =>{
+          console.log("allmessages " + message )
+        })
       }
     }
+    
     // this.websocketConnection.onopen = (event)=>{
     //   const context = {action:"getRecentMessages"}
     //   this.websocketConnection.send(JSON.stringify(context))
@@ -60,8 +61,8 @@ export class ChatComponent implements OnInit {
   scrumLoginUserModel = new Scrumuser('', '', '', '', '');
 
   onClick() {
-    let project_id = parseInt((this._route.snapshot.paramMap.get('project_id')))
-    this._router.navigate(['/scrumboard/', project_id])
+    let project_id = JSON.parse(localStorage.getItem('Authobj'));
+    this._router.navigate(['/scrumboard/', project_id.project_id])
   }
 
   getUsername(){
@@ -74,23 +75,25 @@ export class ChatComponent implements OnInit {
     return new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
   }
 
-  sendMessage(chat_text){
+  sendMessage(){
     // const chat_text = this.scrumLoginUserModel.project_name;
-    // const chat_text = "hello"
-    console.log(chat_text)
-    if(chat_text){
+    // let chat_text = document.getElementById("chat_text").textContent
+    console.log(this.chat_text)
+    if(this.chat_text !== ""){
       const context = {"action":"sendMessage",     
        "username":this.getUsername(),
-       "message":chat_text, 
+       "message":this.chat_text, 
         "timestamp":this.getCurrentTime()}
-      console.log(context)
+      
       this.websocketConnection.send(JSON.stringify(context))
-      this.chat_text = ""
+      console.log(context)
+      this.chat_text = ''
+      this.messages.unshift(context)
       this.scrumLoginUserModel.project_name = '';
-      // window.setInterval(function () {
-      //   const elem = document.getElementById('data');
-      //   elem.scrollTop = elem.scrollHeight;
-      // }, 5000);
+      window.setInterval(function () {
+        const elem = document.getElementById('data');
+        elem.scrollTop = elem.scrollHeight;
+      }, 5000);
     }
   }
 

@@ -18,8 +18,8 @@ export class CreateprojectComponent implements OnInit {
   createProject = new Createproject('', '', '', '', '');
   feedbk = "";
   onClick() {
-    let project_id = parseInt((this._route.snapshot.paramMap.get('project_id')))
-    this._router.navigate(['/scrumboard/', project_id])
+    let project_id = JSON.parse(localStorage.getItem('Authobj'));
+    this._router.navigate(['/scrumboard/', project_id.project_id])
   }
   onSubmit() {
     console.log(this.createProject);

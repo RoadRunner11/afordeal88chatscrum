@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
       if (data['messages'] !== undefined){
         data['messages'].forEach((message) => {
           console.log("new =" + JSON.stringify(message))
-          this.messages.unshift(message)
+          this.messages.push(message)
           
         })
         console.log("Array "+ this.messages)
@@ -88,12 +88,12 @@ export class ChatComponent implements OnInit {
       this.websocketConnection.send(JSON.stringify(context))
       console.log(context)
       this.chat_text = ''
-      this.messages.unshift(context)
-      this.scrumLoginUserModel.project_name = '';
-      window.setInterval(function () {
-        const elem = document.getElementById('data');
-        elem.scrollTop = elem.scrollHeight;
-      }, 5000);
+      // this.messages.unshift(context)
+      // this.scrumLoginUserModel.project_name = '';
+      // window.setInterval(function () {
+      //   const elem = document.getElementById('data');
+      //   elem.scrollTop = elem.scrollHeight;
+      // }, 5000);
     }
   }
 

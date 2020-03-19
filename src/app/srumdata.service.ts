@@ -43,10 +43,15 @@ export class SrumdataService {
     return this._http.get<any>(this._scrumProjectUrl + project_id, this.httpOptions)
   }
 
-  create_project(user: Createproject){
-    return this._http.post<any>(this._url,
-      { 'email': user['email'], 'password': user['password'], 'full_name': user['fullname'] ,
-       'usertype':user['usertype'], 'projname': user['projname'] }, this.httpOptions) 
+  create_project(user: Scrumuser){
+    this.logincred = JSON.parse(localStorage.getItem('Authuser'));
+    this.logincred = btoa(`${this.logincred.email}:${this.logincred.password}`);
+    return this._http.post<any>(this._url, { 'email': user['email'],
+     'password': user['password'], 'full_name': user['fullname'], 
+    'usertype': user['type'], 'projname': user['project_name'] },{
+      headers: new HttpHeaders()
+        .set('Authorization', `Basic ${this.logincred}==`).append('Content-Type', 'application/json')
+    });
   }
 
   creategoal(user: Creategoal): Observable<any> {
@@ -69,11 +74,11 @@ export class SrumdataService {
     })
   }
 
-  changerole(user: Createproject): Observable<any>{
+  changerole(user: Scrumuser): Observable<any>{
     this.token = localStorage.getItem('token');
     this.logincred = JSON.parse(localStorage.getItem('Authuser'));
     this.logincred = btoa(`${this.logincred.email}:${this.logincred.password}`);
-    return this._http.patch(this._changerole + user['password'] + '/', { 'role': user['usertype'], 'project_id': user['projname'] }, {
+    return this._http.patch(this._changerole + user['password'] + '/', { 'role': user['type'],  }, {
       headers: new HttpHeaders()
         .set('Authorization', `Basic ${this.logincred}==`)
     });

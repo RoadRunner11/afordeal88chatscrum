@@ -35,6 +35,7 @@
                 <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
             </div>
         </div>
+        <p>{{scrumUserModel.password}}</p>
 
         <div class="form-group">
             <label for="">User Type</label>
@@ -44,6 +45,7 @@
             </select>
 
         </div>
+        <p>{{scrumUserModel.type}}</p>
         <h5>{{feedbk}}</h5>
         <button class="btn btn-primary">Create User</button>
         <div>Already have an account?<a routerLink="/login">Login</a></div>

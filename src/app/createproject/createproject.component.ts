@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Createproject } from '../createproject';
+import { Scrumuser } from '../scrumuser';
 import { SrumdataService } from '../srumdata.service';
 import { Router } from '@angular/router';
 
@@ -10,19 +11,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./createproject.component.css']
 })
 export class CreateprojectComponent implements OnInit {
-
+  public project_name;
   constructor(private _route: ActivatedRoute, private _scrumdataService: SrumdataService, private _router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
-  createProject = new Createproject('', '', '', '', '');
+  data = JSON.parse(localStorage.getItem('Authuser'));
+  fname = JSON.parse(localStorage.getItem('Authobj'));
+  // createProject = new Createproject('', '', this.data.password, 'regular user', '');
+  createProject = new Scrumuser('', '', '', 'project owner', '')
   feedbk = "";
   onClick() {
     let project_id = JSON.parse(localStorage.getItem('Authobj'));
     this._router.navigate(['/scrumboard/', project_id.project_id])
   }
   onSubmit() {
-    console.log(this.createProject);
+    
+    console.log(this.createProject.project_name)
     this._scrumdataService.create_project(this.createProject).subscribe(
       data => {
         console.log('Success!', data)
@@ -35,6 +40,7 @@ export class CreateprojectComponent implements OnInit {
       }
 
     )
+    console.log(this.createProject);
   }
 
 }

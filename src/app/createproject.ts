@@ -5,5 +5,5 @@ export class Createproject {
         public password: string,
         public usertype: string,
         public projname: string,
-    ) { }
+    ) {}
 }

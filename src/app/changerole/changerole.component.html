@@ -1,16 +1,76 @@
-<p>changerole works!</p>
+<!-- 
 <div class="bg-primary p-3">
     <h3 class="text-white">Change Role</h3>
 </div>
 <div class="container">
-    <form action="" class="m-4" #changeRoleForm = "ngForm" novalidate (ngSubmit)= "onSubmit">  
+    <form action="" class="m-4" #changeRoleForm = "ngForm" novalidate (ngSubmit)= "onSubmit()">  
         <div class="form-group">
             <label for=""><h5>Select Role</h5></label>
-            <select name="newType" class="form-control" [(ngModel)] = "changerole">
+            <select name="newType" class="form-control" [(ngModel)] = "changeRole.type">
                 <option value=""></option>
-                <option value="" *ngFor= "let type of userTypes">{{type}}</option>
+                <option value="" *ngFor= "let eachtype of userTypes">{{eachtype}}</option>
             </select>
+            <p>{{changeRole.type}}</p>
         </div>
         <button class="btn bg-primary" type="submit">Change</button>
     </form>
+</div> -->
+<div class="container-fluid">
+
+    <a class="btn bg-primary conn text-white ml-3" (click)= "onClick()">Scrumboard</a>
+    <h3 class="text-white">Change Role</h3>
+    <!-- {{ userSignupForm.value | json }} -->
+    <!-- {{ email.untouched}} -->
 </div>
+<div class="container">    
+    <form class="m-4" #userSignupForm ="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
+        <!-- <div class="form-group">
+            <label for="">Email</label>
+            <input required type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.invalid && email.touched" 
+            #email="ngModel" name="email" class="form-control" [(ngModel)] = "scrumUserModel.email"> -->
+            <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
+            <!-- <div *ngIf="email.errors && (email.invalid || email.untouched)">
+                <small class="text-danger" [class.d-none]="email.valid || email.untouched" >Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must in lowercase and have a @ char</small>
+            </div>
+        </div> -->
+<!-- 
+        <div class="form-group">
+            <label for="">Full Name</label>
+            <input required type="text" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+            name="fullname" class="form-control" [(ngModel)] = "changeRole.fullname">
+            <div *ngIf="fullname.errors && (fullname.invalid || fullname.untouched)">
+                <small class="text-danger" [class.d-none]="fullname.valid || fullname.untouched" >Full Name is required</small>
+                <small class="text-danger" *ngIf="fullname.errors.pattern">Email must have a @ char</small>
+            </div>
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label for="">Password</label>
+            <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" 
+            [class.is-invalid]="password.invalid && password.touched" name="password" 
+            #password="ngModel" class="form-control" [(ngModel)] = "scrumUserModel.password">
+            <div *ngIf="password.errors && (password.invalid || password.untouched)">
+                <small class="text-danger" [class.d-none]="password.valid || password.untouched" >Password is required</small>
+                <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
+            </div>
+        </div> -->
+        <!-- <p>{{scrumUserModel.password}}</p> -->
+
+        <div class="form-group">
+            <label for=""><h5>Select Role</h5></label>
+            <select name="usertype" id="" class="custom-select" #usertype="ngModel" [(ngModel)] = "changeRole.type">
+                <option value="" selected></option>
+                <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
+            </select>
+
+        </div>
+        <!-- <p>{{scrumUserModel.type}}</p>
+        <h5>{{feedbk}}</h5> -->
+        <button class="btn bg-primary">Change Role</button>
+        <!-- <div>Already have an account?<a routerLink="/login">Login</a></div> -->
+
+    </form>
+
+</div>
+

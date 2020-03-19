@@ -1,24 +1,24 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <a class="btn bg-primary conn text-white ml-3" (click)= "onClick()">Scrumboard</a>
-    <h1>Create a new project</h1>
+    <h1>Create a new project</h1> -->
     <!-- {{ userSignupForm.value | json }} -->
     <!-- {{ email.untouched}} -->
-
+<!-- 
     <form #createProject="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
         <div class="form-group">
             <label for="">Email</label>
             <input required type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                 [class.is-invalid]="email.invalid && email.touched" #email="ngModel" name="email" class="form-control"
-                [(ngModel)]="createProject.email">
+                [(ngModel)]="createProject.email"> -->
             <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
-            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+            <!-- <div *ngIf="email.errors && (email.invalid || email.untouched)">
                 <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
                 <small class="text-danger" *ngIf="email.errors.pattern">Email must in lowercase and have a @
                     char</small>
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="">Full Name</label>
             <input required type="text" name="fullname" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
                  class="form-control" [(ngModel)]="createProject.fullname">
@@ -27,21 +27,89 @@
                     required</small>
                 <small class="text-danger" *ngIf="fullname.errors.pattern">Email must have a @ char</small>
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-group">
-            <label for="">Project Name</label>
-            <input required type="text" pattern=""
-                [class.is-invalid]="projname.invalid && projname.touched" name="projname" #projname="ngModel"
-                class="form-control" [(ngModel)]="createProject.password">
-            <div *ngIf="projname.errors && (projname.invalid || projname.untouched)">
-                <small class="text-danger" [class.d-none]="projname.valid || projname.untouched">Project name is
-                    required</small>
-                <small class="text-danger" *ngIf="projname.errors.pattern">   </small>
+        <!-- <div class="form_group">
+            <label>
+                Project name
+            </label>
+            <input required type="text" pattern="^[A-Za-z]{5,}$"
+             [class.is-invalid]="projectname.invalid && projectname.touched"
+             name="projectname" class="form-control" #projectname='ngModel' [(ngModel)]='createProject.project_name'>
+            <div *ngIf="projectname.errors && (projectname.invalid && projectname.touched)">
+                <small *ngIf="projectname.errors.pattern" class="text-danger">Please enter a valid Project Name - Only
+          alphabets</small>
+                <small *ngIf="projectname.errors.required" class="text-danger">Project Name is required</small>
             </div>
         </div>
+        <p>{{project_name}}</p>
         <h5>{{feedbk}}</h5>
         <br>
         <button class="btn btn-primary" type="submit">Create Project</button>
     </form>
+</div> -->
+<div class="container-fluid">
+    <a class="btn bg-primary conn text-white ml-3" (click)= "onClick()">Scrumboard</a>
+    <h1>Create a new project</h1>
+    <!-- {{ userSignupForm.value | json }} -->
+    <!-- {{ email.untouched}} -->
+    
+    <form #userSignupForm ="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
+        <div class="form-group">
+            <label for="">Email</label>
+            <input required type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.invalid && email.touched" 
+            #email="ngModel" name="email" class="form-control" [(ngModel)] = "createProject.email">
+            <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
+            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+                <small class="text-danger" [class.d-none]="email.valid || email.untouched" >Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must in lowercase and have a @ char</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Full Name</label>
+            <input required type="text" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
+            name="fullname" class="form-control" [(ngModel)] = "createProject.fullname">
+            <div *ngIf="fullname.errors && (fullname.invalid || fullname.untouched)">
+                <small class="text-danger" [class.d-none]="fullname.valid || fullname.untouched" >Full Name is required</small>
+                <small class="text-danger" *ngIf="fullname.errors.pattern">Email must have a @ char</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Password</label>
+            <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" 
+            [class.is-invalid]="password.invalid && password.touched" name="password" 
+            #password="ngModel" class="form-control" [(ngModel)] = "createProject.password">
+            <div *ngIf="password.errors && (password.invalid || password.untouched)">
+                <small class="text-danger" [class.d-none]="password.valid || password.untouched" >Password is required</small>
+                <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Project Name</label>
+            <input required type="text" [class.is-invalid]="projectname.invalid && projectname.touched" #projectname="ngModel"
+            name="projectname" class="form-control" [(ngModel)] = "createProject.project_name">
+            <div *ngIf="projectname.errors && (projectname.invalid || projectname.untouched)">
+                <small class="text-danger" [class.d-none]="fullname.valid || projectname.untouched" >Project Name is required</small>
+                <small class="text-danger" *ngIf="projectname.errors.pattern">Email must have a @ char</small>
+            </div>
+        </div>
+        <p>{{project_name}}</p>
+
+        <!-- <div class="form-group">
+            <label for="">User Type</label>
+            <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.type">
+                <option value="" selected></option>
+                <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
+            </select>
+
+        </div> -->
+        <h5>{{feedbk}}</h5>
+        <button class="btn btn-primary">Create project</button>
+        <!-- <div>Already have an account?<a routerLink="/login">Login</a></div> -->
+
+    </form>
+
 </div>

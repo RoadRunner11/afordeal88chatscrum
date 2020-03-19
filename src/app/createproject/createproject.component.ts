@@ -19,7 +19,7 @@ export class CreateprojectComponent implements OnInit {
   data = JSON.parse(localStorage.getItem('Authuser'));
   fname = JSON.parse(localStorage.getItem('Authobj'));
   // createProject = new Createproject('', '', this.data.password, 'regular user', '');
-  createProject = new Scrumuser('', '', '', 'project owner', '')
+  createProject = new Scrumuser(this.fname.name,this.data.email , this.data.password, 'project owner', '')
   feedbk = "";
   onClick() {
     let project_id = JSON.parse(localStorage.getItem('Authobj'));

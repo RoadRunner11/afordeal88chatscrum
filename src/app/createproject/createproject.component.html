@@ -55,18 +55,18 @@
     <!-- {{ email.untouched}} -->
     
     <form #userSignupForm ="ngForm" novalidate (ngSubmit)="onSubmit()" action="">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="">Email</label>
             <input required type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.invalid && email.touched" 
-            #email="ngModel" name="email" class="form-control" [(ngModel)] = "createProject.email">
+            #email="ngModel" name="email" class="form-control" [(ngModel)] = "createProject.email"> -->
             <!-- <small [class.d-none]="email.valid || email.touched" class="text-danger">Email is required</small> -->
-            <div *ngIf="email.errors && (email.invalid || email.untouched)">
+            <!-- <div *ngIf="email.errors && (email.invalid || email.untouched)">
                 <small class="text-danger" [class.d-none]="email.valid || email.untouched" >Email is required</small>
                 <small class="text-danger" *ngIf="email.errors.pattern">Email must in lowercase and have a @ char</small>
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="">Full Name</label>
             <input required type="text" [class.is-invalid]="fullname.invalid && fullname.touched" #fullname="ngModel"
             name="fullname" class="form-control" [(ngModel)] = "createProject.fullname">
@@ -85,14 +85,14 @@
                 <small class="text-danger" [class.d-none]="password.valid || password.untouched" >Password is required</small>
                 <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label for="">Project Name</label>
             <input required type="text" [class.is-invalid]="projectname.invalid && projectname.touched" #projectname="ngModel"
             name="projectname" class="form-control" [(ngModel)] = "createProject.project_name">
             <div *ngIf="projectname.errors && (projectname.invalid || projectname.untouched)">
-                <small class="text-danger" [class.d-none]="fullname.valid || projectname.untouched" >Project Name is required</small>
+                <small class="text-danger" [class.d-none]="projectname.valid || projectname.untouched" >Project Name is required</small>
                 <small class="text-danger" *ngIf="projectname.errors.pattern">Email must have a @ char</small>
             </div>
         </div>

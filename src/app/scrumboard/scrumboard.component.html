@@ -180,7 +180,7 @@
                 <!--task movement quality analysit-->
                 <tr *ngIf="rolee == 'Quality Analyst'">
                     <td cdkDropList #task_for_the_week="cdkDropList" [cdkDropListData]="tftw"
-                        [cdkDropListConnectedTo]="[]" (cdkDropListDropped)="drop($event)">
+                        [cdkDropListConnectedTo]="[task_for_the_day]" (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
                             <div *ngIf="goal['status'] == 0 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
@@ -188,8 +188,8 @@
                             </div>
                         </div>
                     </td>
-                    <td cdkDropList #task_for_the_day="cdkDropList" [cdkDropListData]="tftd" [cdkDropListConnectedTo]="[]"
-                        (cdkDropListDropped)="drop($event)">
+                    <td cdkDropList #task_for_the_day="cdkDropList" [cdkDropListData]="tftd" 
+                    [cdkDropListConnectedTo]="[task_verified, task_for_the_week]" (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
                             <div *ngIf="goal['status'] == 1 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}
@@ -198,7 +198,7 @@
                         </div>
                     </td>
                     <td cdkDropList #task_verified="cdkDropList" [cdkDropListData]="verify"
-                        [cdkDropListConnectedTo]="[task_done, task_for_the_week]" (cdkDropListDropped)="drop($event)">
+                        [cdkDropListConnectedTo]="[task_done, task_for_the_day]" (cdkDropListDropped)="drop($event)">
                         <div *ngFor="let goal of participant['scrumgoal_set']" [cdkDragData]="goal" cdkDrag>
                             <div *ngIf="goal['status'] == 2 && goal['user'] == participant['id']">
                                 {{ goal['name'] }}<br> {{ goal['id'] }}

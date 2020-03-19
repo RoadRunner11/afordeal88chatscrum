@@ -9,13 +9,11 @@ import { SrumdataService } from '../srumdata.service';
 export class SignupComponent implements OnInit {
 
   constructor(private _scrumdataService: SrumdataService) { }
-
-  ngOnInit() {
-  }
   userTypes = ['regular user', 'project owner'];
   scrumUserModel = new Scrumuser('', '', '', '', ''); 
   feedbk ="";
-
+  ngOnInit() {
+  }
   onSubmit(){
     console.log(this.scrumUserModel);
     this._scrumdataService.signup(this.scrumUserModel).subscribe(

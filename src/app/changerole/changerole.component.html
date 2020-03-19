@@ -57,16 +57,29 @@
         </div> -->
         <!-- <p>{{scrumUserModel.password}}</p> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for=""><h5>Select Role</h5></label>
-            <select name="usertype" id="" class="custom-select" #usertype="ngModel" [(ngModel)] = "changeRole.type">
+            <select name="usertype" id="" class="custom-select" [class.is-invalid]="usertype.invalid && usertype.touched"
+            #usertype="ngModel" [(ngModel)] = "changeRole.type">
                 <option value="" selected></option>
                 <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
             </select>
 
+        </div> -->
+        <div class="form_group">
+            <label>Select Role </label>
+            <select class="custom-select" required name="userrole" #userrole='ngModel'
+             [class.is-invalid]="userrole.invalid && userrole.touched" [(ngModel)]='changeRole.type'>
+                <option value='' selected>I am signin as</option>
+                <option *ngFor="let role of userTypes">{{ role }}</option>
+            </select>
+            <div *ngIf="userrole.value === '' && userrole.touched">
+                <small class="text-danger">User Role required</small>
+            </div>
         </div>
-        <!-- <p>{{scrumUserModel.type}}</p>
-        <h5>{{feedbk}}</h5> -->
+        <!-- <p>{{changeRole.type}}</p>
+        <p>{{scrumUserModel.type}}</p> -->
+        <h5>{{feedbk}}</h5>
         <button class="btn bg-primary">Change Role</button>
         <!-- <div>Already have an account?<a routerLink="/login">Login</a></div> -->
 

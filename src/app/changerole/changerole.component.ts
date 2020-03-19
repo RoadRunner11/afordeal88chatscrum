@@ -13,8 +13,7 @@ export class ChangeroleComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _scrumdataService: SrumdataService, private _router: Router) { }
 
-  ngOnInit(): void {
-  }
+
   roleId = this._route.snapshot.paramMap.get('role_id')
   Auth = JSON.parse(localStorage.getItem('Authobj'))
   project_id = this.Auth.project_id
@@ -23,6 +22,9 @@ export class ChangeroleComponent implements OnInit {
 
   userTypes: any[] = ['Owner', 'Quality Analyst', 'Developer']
 
+  ngOnInit(): void {
+  }
+  
   onClick() {
     let project_id = JSON.parse(localStorage.getItem('Authobj'));
     this._router.navigate(['/scrumboard/', project_id.project_id])

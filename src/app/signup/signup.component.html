@@ -35,17 +35,39 @@
                 <small class="text-danger" *ngIf="password.errors.pattern">Password must 8-15 characters long</small>
             </div>
         </div>
-        <p>{{scrumUserModel.password}}</p>
+        <!-- <p>{{scrumUserModel.password}}</p> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="">User Type</label>
-            <select name="usertype" id="" class="custom-select" [(ngModel)] = "scrumUserModel.type">
+            <select name="usertype" id="" class="custom-select" #usertype='ngModel' [(ngModel)] = "scrumUserModel.type">
                 <option value="" selected></option>
                 <option *ngFor= "let type of userTypes" value="">{{type}}</option>                
             </select>
 
+        </div> -->
+        <div class="form-group">
+            <label for="">Project Name</label>
+            <input required type="text" pattern="" [class.is-invalid]="projname.invalid && projname.touched" name="projname" 
+            #projname="ngModel" class="form-control" [(ngModel)] = "scrumUserModel.project_name" >
+            <div *ngIf="projname.errors && (projname.invalid || projname.untouched)">
+                <small class="text-danger" [class.d-none]="projname.valid || projname.untouched" >Project Type is required</small>
+                <small class="text-danger" *ngIf="projname.errors.pattern">Error</small>
+            </div>
         </div>
-        <p>{{scrumUserModel.type}}</p>
+        <!-- <p>{{scrumUserModel.project_name}}</p> -->
+        <div class="form_group">
+            <label>User Type
+            </label>
+            <select class="custom-select" required name="usertype" #usertype='ngModel'
+             [class.is-invalid]="usertype.invalid && usertype.touched" [(ngModel)]='scrumUserModel.type'>
+                <option value='' selected>I am signin as</option>
+                <option *ngFor="let type of userTypes">{{ type }}</option>
+            </select>
+            <div *ngIf="usertype.value === '' && usertype.touched">
+                <small class="text-danger">User Type required</small>
+            </div>
+        </div>
+        <!-- <p>{{scrumUserModel.type}}</p> -->
         <h5>{{feedbk}}</h5>
         <button class="btn btn-primary">Create User</button>
         <div>Already have an account?<a routerLink="/login">Login</a></div>

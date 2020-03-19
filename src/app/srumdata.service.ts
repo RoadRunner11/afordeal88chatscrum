@@ -28,7 +28,7 @@ export class SrumdataService {
 
   signup(user : Scrumuser){
     return this._http.post<any>(this._url, {'email':user['email'], 'password':user['password'],
-            'full_name':user['fullname'], 'usertype':user['usertype'], 'projname': user['project_name']}, this.httpOptions)
+            'full_name':user['fullname'], 'usertype':user['type'], 'projname': user['project_name']}, this.httpOptions)
   }
   login(user: ScrumUserLoginData) {
     return this._http.post<any>(this._loginUrl, {
@@ -78,7 +78,7 @@ export class SrumdataService {
     this.token = localStorage.getItem('token');
     this.logincred = JSON.parse(localStorage.getItem('Authuser'));
     this.logincred = btoa(`${this.logincred.email}:${this.logincred.password}`);
-    return this._http.patch(this._changerole + user['password'] + '/', { 'role': user['type'],  }, {
+    return this._http.patch(this._changerole + user['password'] + '/', { role: user['type']  }, {
       headers: new HttpHeaders()
         .set('Authorization', `Basic ${this.logincred}==`)
     });
